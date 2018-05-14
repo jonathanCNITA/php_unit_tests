@@ -25,4 +25,9 @@ class DonationFee
     {
         return abs(($this->donation * $this->commissionPercentage) / 100);
     }
+
+    public function getAmountCollected()
+    {
+        return $this->donation - (($this->donation * $this->commissionPercentage) / 100);
+    }
 }
