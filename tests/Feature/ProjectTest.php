@@ -26,4 +26,12 @@ class ProjectTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+    public function testH1InProjectPage()
+    {
+        $response = $this->get('/project');
+        $toSearch = "<h1>Liste des projets</h1>";
+        $response->assertSee($toSearch);
+    }
+
 }
