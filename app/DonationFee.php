@@ -21,6 +21,10 @@ class DonationFee
             throw new \Exception("commission Percentage out of bound :min 0, max 30!");
         }
 
+        if ($donation < 100) {
+            throw new \Exception("Donation is to low : min 100");
+        }
+
         $this->donation = $donation;
         $this->commissionPercentage = $commissionPercentage;
     }
