@@ -60,6 +60,10 @@ class DonationFeeTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /*
+     *  Le pourcentage de commission doit être un être compris entre 0 et 30 %, 
+     *  dans le cas contraire la class retournera une ​Exception
+     */
 
     public function testCommissionPercentValue()
     {
@@ -79,4 +83,21 @@ class DonationFeeTest extends TestCase
         $donationFees = new DonationFee(100, 50);
     }
 
+    /*
+     *  Le montant de la donation doit être un entier positif représentant 
+     *  un montant en centimes d’euros, et doit être supérieur ou égale à 100 (1€) 
+     *  dans le cas contraire la class retournera une ​Exception​ 
+    */
+
+    public function testPositiveDonation() 
+    {
+        $this->expectException(\Exception::class);
+        $donationFees = new DonationFee(80, 20);
+    }
+
+    public function testNegativeDonation() 
+    {
+        $this->expectException(\Exception::class);
+        $donationFees = new DonationFee(-800, 20);
+    }
 }
