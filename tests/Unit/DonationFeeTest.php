@@ -37,9 +37,6 @@ class DonationFeeTest extends TestCase
     
     }
 
-
-
-
     public function testGetAmountCollected()
     {
         // Etant donné une donation de 100 et commission de 10%
@@ -59,6 +56,7 @@ class DonationFeeTest extends TestCase
         $expected = 80;
         $this->assertEquals($expected, $actual);
     }
+
 
     /*
      *  Le pourcentage de commission doit être un être compris entre 0 et 30 %, 
@@ -83,11 +81,12 @@ class DonationFeeTest extends TestCase
         $donationFees = new DonationFee(100, 50);
     }
 
+
     /*
      *  Le montant de la donation doit être un entier positif représentant 
      *  un montant en centimes d’euros, et doit être supérieur ou égale à 100 (1€) 
      *  dans le cas contraire la class retournera une ​Exception​ 
-    */
+     */
 
     public function testPositiveDonation() 
     {
@@ -101,6 +100,7 @@ class DonationFeeTest extends TestCase
         $donationFees = new DonationFee(-800, 20);
     }
 
+
     /*
      *  En plus de la commission variable, il faut maintenant ajouter des frais fixes
      *  “​fixedFee” de 0,50 € prélevés par le site. Ces frais sont ajoutés à la commission
@@ -111,8 +111,8 @@ class DonationFeeTest extends TestCase
      *  frais fixes et de la commission
      */
 
-     public function test​GetFixedAndCommissionFeeAmount() 
-     {
+    public function test​GetFixedAndCommissionFeeAmount() 
+    {
         // Given 
         $donationFees = new DonationFee(100, 10);
         // When
@@ -120,10 +120,10 @@ class DonationFeeTest extends TestCase
         // Then
         $expected = 60;
         $this->assertEquals($expected, $actual);
-     }
+    }
 
-     public function test​GetFixedAndCommissionFeeAmountWithZeroCommission() 
-     {
+    public function test​GetFixedAndCommissionFeeAmountWithZeroCommission() 
+    {
         // Given 
         $donationFees = new DonationFee(100, 0);
         // When
@@ -131,21 +131,29 @@ class DonationFeeTest extends TestCase
         // Then
         $expected = 50;
         $this->assertEquals($expected, $actual);
-     }
+    }
 
-     /*
-      * Quelque soit le montant du don, le total des frais prélevés par le site 
-      * devront être limité à ​5€ maximum
-      */
 
-      public function test​GetFixedAndCommissionFeeAmountMax500() 
-      {
-         // Given 
-         $donationFees = new DonationFee(10000, 20);
-         // When
-         $actual = $donationFees->​getFixedAndCommissionFeeAmount();
-         // Then
-         $expected = 500;
-         $this->assertEquals($expected, $actual);
-      }
+    /*
+     * Quelque soit le montant du don, le total des frais prélevés par le site 
+     * devront être limité à ​5€ maximum
+     */
+
+    public function test​GetFixedAndCommissionFeeAmountMax500() 
+    {
+        // Given 
+        $donationFees = new DonationFee(10000, 20);
+        // When
+        $actual = $donationFees->​getFixedAndCommissionFeeAmount();
+        // Then
+        $expected = 500;
+        $this->assertEquals($expected, $actual);
+    }
+
+
+    /*
+     *   Nous souhaitons avoir une method ​getSummary() qui retourne un tableau
+     *   associatif contenant les clés : ​donation / ​fixedFee / ​commission /
+     *   fixedAndCommission / ​amountCollected avec leurs valeurs respectives
+     */
 }
