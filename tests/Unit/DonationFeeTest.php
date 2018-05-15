@@ -132,4 +132,20 @@ class DonationFeeTest extends TestCase
         $expected = 50;
         $this->assertEquals($expected, $actual);
      }
+
+     /*
+      * Quelque soit le montant du don, le total des frais prélevés par le site 
+      * devront être limité à ​5€ maximum
+      */
+
+      public function test​GetFixedAndCommissionFeeAmountMax500() 
+      {
+         // Given 
+         $donationFees = new DonationFee(10000, 20);
+         // When
+         $actual = $donationFees->​getFixedAndCommissionFeeAmount();
+         // Then
+         $expected = 500;
+         $this->assertEquals($expected, $actual);
+      }
 }
