@@ -100,4 +100,25 @@ class DonationFeeTest extends TestCase
         $this->expectException(\Exception::class);
         $donationFees = new DonationFee(-800, 20);
     }
+
+    /*
+     *  En plus de la commission variable, il faut maintenant ajouter des frais fixes
+     *  “​fixedFee” de 0,50 € prélevés par le site. Ces frais sont ajoutés à la commission
+     *  variable. Ce montant fixe devra être défini comme une constante de votre class
+     *  Commission ​http://php.net/manual/fr/language.oop5.constants.php​ , la
+     *  commission restera défini dans le constructeur. Ajouter à la Class ​DonationFee
+     *  une method ​getFixedAndCommissionFeeAmount() qui retourne la somme des
+     *  frais fixes et de la commission
+     */
+
+     public function test​GetFixedAndCommissionFeeAmount() {
+        // Given 
+        $donation = new DonationFee(100, 10);
+        // When
+        $actual = $donationFees->​getFixedAndCommissionFeeAmount();
+        // Then
+        $expected = 60;
+        $this->assertEquals($excepted, $actual);
+
+     }
 }
