@@ -66,7 +66,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-           <h1>toto</h1>
+           <h1>Liste des projets</h1>
         </div>
     </body>
 </html>
