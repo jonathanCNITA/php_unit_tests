@@ -44,7 +44,7 @@ class DonationFeeTest extends TestCase
         // Lorsque qu'on appel la méthode getAmountCollected()
         $actual = $donationFees->getAmountCollected();
         // Alors la Valeur de la du montant collecté doit être de 90
-        $expected = 90;
+        $expected = 40;
         $this->assertEquals($expected, $actual);
 
 
@@ -53,7 +53,7 @@ class DonationFeeTest extends TestCase
         // Lorsque qu'on appel la méthode getAmountCollected()
         $actual = $donationFees->getAmountCollected();
         // Alors la Valeur de la du montant collecté doit être de 80
-        $expected = 80;
+        $expected = 30;
         $this->assertEquals($expected, $actual);
     }
 
