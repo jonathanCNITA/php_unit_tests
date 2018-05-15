@@ -156,4 +156,38 @@ class DonationFeeTest extends TestCase
      *   associatif contenant les clés : ​donation / ​fixedFee / ​commission /
      *   fixedAndCommission / ​amountCollected avec leurs valeurs respectives
      */
+
+    public function testGetSummary_1()
+    {
+        // Given
+        $donationFees = new DonationFee(100, 10);
+        // When
+        $actual = $donationFees->​getSummary();
+        // Then
+        $expected = array(
+            "​donation"=>100, 
+            "​fixedFee"=>50, 
+            "​commission"=>10, 
+            "fixedAndCommission"=>60, 
+            "​amountCollected"=>40
+        );
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetSummary_2()
+    {
+        // Given
+        $donationFees = new DonationFee(250, 25);
+        // When
+        $actual = $donationFees->​getSummary();
+        // Then
+        $expected = array(
+            "​donation"=>250, 
+            "​fixedFee"=>50, 
+            "​commission"=>25, 
+            "fixedAndCommission"=>112.5, 
+            "​amountCollected"=>137.5
+        );
+        $this->assertEquals($expected, $actual);
+    }
 }
