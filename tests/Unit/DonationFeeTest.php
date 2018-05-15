@@ -111,14 +111,25 @@ class DonationFeeTest extends TestCase
      *  frais fixes et de la commission
      */
 
-     public function test​GetFixedAndCommissionFeeAmount() {
+     public function test​GetFixedAndCommissionFeeAmount() 
+     {
         // Given 
-        $donation = new DonationFee(100, 10);
+        $donationFees = new DonationFee(100, 10);
         // When
         $actual = $donationFees->​getFixedAndCommissionFeeAmount();
         // Then
         $expected = 60;
-        $this->assertEquals($excepted, $actual);
+        $this->assertEquals($expected, $actual);
+     }
 
+     public function test​GetFixedAndCommissionFeeAmountWithZeroCommission() 
+     {
+        // Given 
+        $donationFees = new DonationFee(100, 0);
+        // When
+        $actual = $donationFees->​getFixedAndCommissionFeeAmount();
+        // Then
+        $expected = 50;
+        $this->assertEquals($expected, $actual);
      }
 }
