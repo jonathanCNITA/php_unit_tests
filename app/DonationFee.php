@@ -17,6 +17,10 @@ class DonationFee
 
     public function __construct($donation, $commissionPercentage)
     {
+        if ($commissionPercentage > 30 || $commissionPercentage < 0) {
+            throw new \Exception("commission Percentage out of bound :min 0, max 30!");
+        }
+
         $this->donation = $donation;
         $this->commissionPercentage = $commissionPercentage;
     }
