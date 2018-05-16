@@ -62,11 +62,23 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .img-project{
+                width: 100%;
+                height: 100%;
+                max-width: 100px;
+                max-height: 100px;
+                border-radius: 50%;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-           <h1>Liste des projets</h1>
-        </div>
+        <h1>Liste des projets</h1>
+        @foreach($projects as $project)
+            <h2>{{ $project->title }}</h2>
+            <p>{{ $project->resume }}</p>
+            <img class="img-project" src="{{ $project->imageurl }}" alt="imageProject" >
+            <a href="{{ route('ficheProjet', [$project->id]) }}">Voir le projet</a>
+        @endforeach
     </body>
 </html>
