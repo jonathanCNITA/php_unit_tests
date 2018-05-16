@@ -44,19 +44,19 @@ class DonationFeeTest extends TestCase
         $donationFees = new DonationFee(100, 10);
         // Lorsque qu'on appel la méthode getAmountCollected()
         $actual = $donationFees->getAmountCollected();
-        // Alors la Valeur de la du montant collecté doit être de 90
-        $expected = 40;
+        // Alors la Valeur de la du montant collecté doit être de 40
+        $expected = 100 - 10 - 50;
         $this->assertEquals($expected, $actual);
     }
 
-    public function testGetAmountCollected_2()
+    public function testGetAmountCollectedWithMaxCommissionOf5Euros()
     {
         // Etant donné une donation de 100 et commission de 20%
-        $donationFees = new DonationFee(100, 20);
+        $donationFees = new DonationFee(10000, 30);
         // Lorsque qu'on appel la méthode getAmountCollected()
         $actual = $donationFees->getAmountCollected();
-        // Alors la Valeur de la du montant collecté doit être de 80
-        $expected = 30;
+        // On attend le montant max soit 500 cts de commission
+        $expected = 10000 - 500;
         $this->assertEquals($expected, $actual);
     }
 
