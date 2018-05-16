@@ -21,7 +21,7 @@ class ProjectTest extends TestCase
 
     public function testProjectRoute()
     {
-        $response = $this->get('/project');
+        $response = $this->get('/projects');
 
         $response->assertStatus(200);
     }
@@ -29,7 +29,7 @@ class ProjectTest extends TestCase
 
     public function testH1InProjectPage()
     {
-        $response = $this->get('/project');
+        $response = $this->get('/projects');
         $toSearch = "<h1>Liste des projets</h1>";
         $response->assertSee($toSearch);
     }
