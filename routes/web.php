@@ -15,9 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/projects', function () {
-    return view('projects');
-});
+Route::get('/projects', 'ProjectController@index');
+
+Route::get('project/show/{id}', 'ProjectController@show')->name('ficheProjet');
+
 
 Auth::routes();
 
