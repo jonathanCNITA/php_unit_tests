@@ -65,8 +65,9 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-           <h1>Liste des projets</h1>
-        </div>
+        <h1>{{ $project->title }}</h1>
+        <p>{{ $project->created_at }}</p>
+        <p>{{ $project->content }}</p>
+        <img src="{{ $project->imageurl }}" alt="imageProject">
     </body>
 </html>
