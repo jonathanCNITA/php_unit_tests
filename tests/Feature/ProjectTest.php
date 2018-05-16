@@ -15,19 +15,17 @@ class ProjectTest extends TestCase
     public function testBasicTest()
     {
         $response = $this->get('/');
-
         $response->assertStatus(200);
     }
 
     public function testProjectRoute()
     {
         $response = $this->get('/projects');
-
         $response->assertStatus(200);
     }
 
 
-    public function testH1InProjectPage()
+    public function testPresenceOfH1InProjects()
     {
         $response = $this->get('/projects');
         $toSearch = "<h1>Liste des projets</h1>";
