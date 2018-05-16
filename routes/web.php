@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/project', function () {
-    return view('project');
+Route::get('/projects', function () {
+    return view('projects');
 });
 
 Auth::routes();
