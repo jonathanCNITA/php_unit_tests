@@ -32,4 +32,14 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
+    /**
+     * Test du de la presence d'un projet
+     * 
+     */
+    public function testAProjectRoute()
+    {
+        $response = $this->get('/project/show/3');
+        $response->assertStatus(200);
+    }
+    
 }
