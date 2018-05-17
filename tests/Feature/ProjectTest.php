@@ -45,4 +45,11 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
+    public function testPresenceOfH1InProjectFactory()
+    {
+        $project = factory(\App\Project::class)->create();
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = '<h1>' . $project->title . '</h1>';
+        $response->assertSee($toSearch);
+    }
 }
