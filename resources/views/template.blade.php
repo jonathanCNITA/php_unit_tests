@@ -23,7 +23,7 @@
 
             .navbar{
                 font-size:25px;
-                margin-bottom:400px;
+                margin-bottom:100px;
             }
 
             .full-height {
@@ -68,14 +68,23 @@
                 margin-bottom: 30px;
             }
 
+            .img-project{
+                width: 100%;
+                /* height: 100%;
+                min-width: 100px; */
+                max-width: 300px;
+                /* min-height: 100px;
+                max-height: 100px;
+                border-radius: 50%; */
+            }
         </style>
     </head>
     <body>
-    @include('navbar')
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title m-b-md">
-                    @yield('titre')
+        @include('navbar')
+        <div class="content">
+            <div class="title m-b-md">
+                @yield('titre')
+                <div class="container">
                     @yield('contenu')
                 </div>
             </div>
