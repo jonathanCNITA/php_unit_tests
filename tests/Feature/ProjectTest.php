@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
 {
+    use \Illuminate\Foundation\Testing\DatabaseMigrations;
     /**
      * A basic test example.
      *
@@ -31,27 +32,5 @@ class ProjectTest extends TestCase
         $toSearch = "<h1>Liste des projets</h1>";
         $response->assertSee($toSearch);
     }
-
-    /**
-     * Test du de la presence d'un projet
-     * 
-     */
-    public function testAProjectRoute()
-    {
-        $response = $this->get('/project/show/3');
-        $response->assertStatus(200);
-    }
-
-    /**
-     * Test du de la presence d'un Titre dans un projet
-     * 
-     */
-    public function testPresenceOfH1InProject()
-    {
-        $response = $this->get('/project/show/3');
-        $toSearch = '<h1>Quae at modi sapiente ut illo.</h1>';
-        $response->assertSee($toSearch);
-    }
-
 
 }
