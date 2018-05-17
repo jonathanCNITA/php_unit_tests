@@ -19,6 +19,9 @@ Route::get('/projects', 'ProjectController@index');
 
 Route::get('project/show/{id}', 'ProjectController@show')->name('ficheProjet');
 
+Route::get('/donate', function(){
+    return view('donate');
+});
 
 Auth::routes();
 
