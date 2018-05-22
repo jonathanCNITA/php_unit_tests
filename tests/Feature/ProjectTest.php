@@ -52,4 +52,16 @@ class ProjectTest extends TestCase
         $toSearch = '<h1>' . $project->title . '</h1>';
         $response->assertSee($toSearch);
     }
+
+    
+    /**
+     *  TEST AVEC LES DATAS DE LA BDD
+     */
+
+    // Test de la presence d'un projet
+    public function testProjectWithId()
+    {
+        $response = $this->get('/project/show/1');
+        $response->assertStatus(200);
+    }
 }
