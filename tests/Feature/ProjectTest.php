@@ -16,19 +16,22 @@ class ProjectTest extends TestCase
      * @return void
      */
 
+    // TEST de status HTTP validé
     public function testBasicTest()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
 
+    // TEST de status HTTP validé
     public function testProjectRoute()
     {
         $response = $this->get('/projects');
-        $response->assertStatus(200);
+        $response->assertSuccessful();
     }
 
-
+    
+    // TEST validant la présence du titre “Liste des projets”
     public function testPresenceOfH1InProjects()
     {
         $response = $this->get('/projects');
@@ -36,10 +39,12 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
-     /**
+
+    /**
      *  TEST AVEC LES DATAS DU FACTORY POUR PROJECT
      */
 
+    // TEST validant la présence du titre d’un projet sur la page de liste des projets
     public function testPresenceOfH2InProjects()
     {
         $project = factory(\App\Project::class, 100)->create()->random();
@@ -48,6 +53,7 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
+    // TEST validant la présence du titre d’un projet sur la page de détails d’un projet 
     public function testPresenceOfH1InProjectFactory()
     {
         $project = factory(\App\Project::class)->create();
@@ -55,32 +61,40 @@ class ProjectTest extends TestCase
         $toSearch = '<h1>' . $project->title . '</h1>';
         $response->assertSee($toSearch);
     }
-
-    public function testPresenceOfAutorInProjectFactory()
-    {
-        $project = factory(\App\Project::class)->create();
-        $response = $this->get('/project/show/'. $project->id);
-        $toSearch = 'by ' . $project->auth;
-        $response->assertSee($toSearch);
-    }
-
-    public function testPresenceOfAutorInProjectFactory50()
-    {
-        $project = factory(\App\Project::class, 50)->create()->random(); 
-        $response = $this->get('/project/show/'. $project->id);
-        $toSearch = 'by ' . $project->auth;
-        $response->assertSee($toSearch);
-    }
-
-    public function testPresenceOfAutorFirstnameInTheUserTable()
+    
+    // TEST unitaire validant la relation entre les models ​Project et ​User 
+    // tester rel Projet - User instanceOf
+    public function testPresenceOfAutorFirstnameFromUserTable()
     {
         $project = factory(\App\Project::class, 2)->create()->random(); 
         $response = $this->get('/project/show/'. $project->id);
         $toSearch = $project->user->firstname;
-        // dump($toSearch);
-        // dump('##########################################');
-        // dump($response);
         $response->assertSee($toSearch);
     }
 
+    public function testMatchingAutorProjectFirstnameUser()
+    {
+        $project = factory(\App\Project::class, 100)->create()->random(); 
+        $actual = $project->autor;
+        $expected = $project->user->firstname;
+        $this->assertEquals($expected, $actual);
+    }
+
+    //  TEST validant la présence du nom de l’auteur d’un projet sur la page de détails d’un projet
+    public function testPresenceOfAutorInProjectFactory()
+    {
+        $project = factory(\App\Project::class)->create();
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = '<strong>' . $project->autor . '</strong>';
+        $response->assertSee($toSearch);
+    }
+
+    //  TEST validant la présence du nom de l’auteur d’un projet sur la page de détails d’un projet
+    public function testPresenceOfAutorInProjectFactory50()
+    {
+        $project = factory(\App\Project::class, 50)->create()->random();
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = '<strong>' . $project->autor . '</strong>';
+        $response->assertSee($toSearch);
+    }
 }
