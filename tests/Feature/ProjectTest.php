@@ -7,12 +7,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
 {
-    use \Illuminate\Foundation\Testing\DatabaseMigrations;
+    // use \Illuminate\Foundation\Testing\DatabaseMigrations; //-- old version
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
      * @return void
      */
+
     public function testBasicTest()
     {
         $response = $this->get('/');
@@ -53,15 +56,12 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
-    
-    /**
-     *  TEST AVEC LES DATAS DE LA BDD
-     */
-
-    // Test de la presence d'un projet
-    public function testProjectWithId()
+    public function testPresenceOfAutorInProjectFactory()
     {
-        $response = $this->get('/project/show/1');
-        $response->assertStatus(200);
+        $project = factory(\App\Project::class)->create();
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = 'by ' . $project->auth;
+        $response->assertSee($toSearch);
     }
+
 }
