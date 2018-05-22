@@ -64,4 +64,23 @@ class ProjectTest extends TestCase
         $response->assertSee($toSearch);
     }
 
+    public function testPresenceOfAutorInProjectFactory50()
+    {
+        $project = factory(\App\Project::class, 50)->create()->random(); 
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = 'by ' . $project->auth;
+        $response->assertSee($toSearch);
+    }
+
+    public function testPresenceOfAutorFirstnameInTheUserTable()
+    {
+        $project = factory(\App\Project::class, 2)->create()->random(); 
+        $response = $this->get('/project/show/'. $project->id);
+        $toSearch = $project->user->firstname;
+        // dump($toSearch);
+        // dump('##########################################');
+        // dump($response);
+        $response->assertSee($toSearch);
+    }
+
 }
