@@ -21,19 +21,22 @@ class ModelRelationTest extends TestCase
      */
 
     // TEST unitaire validant la relation entre les models ​Project et ​User 
-    public function testUserInstanceInProject()
+    public function testProjectHaveUser()
     {
         $project = factory(\App\Project::class, 100)->create()->random(); 
         $userProject = $project->user;
         //dump($userProject);
         $this->assertInstanceOf(User::class, $userProject);
     }
-    /*
-    * Creer un user associer un project
-    * test 
-    */
 
-    public function testProjectInstanceInUser()
+    
+    /*
+     * Creer un user associer un project
+     * test 
+     */
+
+    // TEST unitaire validant la relation entre les models ​User et ​Project 
+    public function testUserHaveProject()
     {
         $user = factory(\App\User::class)->create();
         dump($user);
@@ -44,7 +47,5 @@ class ModelRelationTest extends TestCase
         dump('##############');
         dump($user->project);
         $this->assertInstanceOf(Collection::class, ($user->project));
-
-
     }
 }
