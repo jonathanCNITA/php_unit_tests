@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Project;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 class ProjectController extends Controller
 {
     /**
@@ -13,6 +16,12 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $projects = Project::all();
