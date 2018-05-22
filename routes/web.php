@@ -26,3 +26,5 @@ Route::get('/donate', function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/createProject', 'HomeController@create');
