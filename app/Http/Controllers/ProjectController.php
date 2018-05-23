@@ -81,7 +81,15 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        $user = Auth::user();
+        dump($project->user_id);
+        dump($user->id);
+        if ($project->user_id == $user->id){
+            return view('edit', ['project'=>$project]);
+        }
+        abort(404);
+
     }
 
     /**
