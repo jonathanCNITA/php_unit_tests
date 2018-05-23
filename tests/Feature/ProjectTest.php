@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use App\Project;
+
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -96,5 +99,17 @@ class ProjectTest extends TestCase
         $response = $this->get('/project/show/'. $project->id);
         $toSearch = '<strong>' . $project->autor . '</strong>';
         $response->assertSee($toSearch);
+    }
+
+    public function testTitreProjet()
+    {
+        $project = factory(\App\Project::class)->create();
+        $value = $project->title;
+        $response = $this->get('/project/show/' . $project->id);
+        $firstProject = Project::all()->first();
+        $expected = $firstProject->title;
+        dump($value);
+        dump($expected);
+        $this->assertEquals($value, $expected);
     }
 }
