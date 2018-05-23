@@ -11,15 +11,23 @@
 |
 */
 
+use App\Project;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/projects', 'ProjectController@index');
 
+Route::get('project/create', 'ProjectController@create')->middleware('auth');
+
 Route::get('project/show/{id}', 'ProjectController@show')->name('ficheProjet');
 
-Route::get('/donate', function(){
+Route::get('project/edit/{id}', 'ProjectController@edit');
+
+Route::put('project/update/{id}', 'ProjectController@update')->middleware('can:update,project');
+
+Route::get('/donate', function() {
     return view('donate');
 });
 
@@ -27,4 +35,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/createProject', 'HomeController@create');
+
