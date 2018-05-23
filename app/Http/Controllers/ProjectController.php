@@ -17,10 +17,10 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
     public function index()
     {
@@ -47,7 +47,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $addProject = new Project();
+        $user = Auth::user();
+        $addProject->autor = $user->firstname;
+        $addProject->title  = $request->input('title');
+        $addProject->resume = $request->input('resume');
+        $addProject->content = $request->input('content');
+        $addProject->imageurl = $request->input('imageurl');
+        $addProject->user_id = $user->id;
+        $addProject->save();
+        return redirect('projects');
     }
 
 
