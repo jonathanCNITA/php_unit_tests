@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
 {
-    // use \Illuminate\Foundation\Testing\DatabaseMigrations; //-- old version
     use RefreshDatabase;
 
     /**
@@ -18,8 +17,8 @@ class ProjectTest extends TestCase
      * @return void
      */
 
-     public function testHomeWithoutAuth() 
-     {
+    public function testHomeWithoutAuth() 
+    {
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)
@@ -27,21 +26,22 @@ class ProjectTest extends TestCase
                          ->get('/');
         
         $response->assertStatus(200);
-     }
+    }
 
-     
-     public function testProjectsPageWithoutAuth() 
-     {
+/*     
+
+    public function testProjectPageWithoutAuth() 
+    {
         $project = factory(Project::class)->create();
         $this->expectException(\Exception::class);
 
         $response = $this->withSession(['food' => 'bar'])
                          ->get('/project/show/' . ($project->id));
-     }
+    }
 
 
-     public function testProjectsPageWithAuth() 
-     {
+    public function testProjectPageWithAuth() 
+    {
         $user = factory(User::class)->create();
         $project = factory(Project::class)->create();
         $response = $this->actingAs($user)
@@ -49,6 +49,84 @@ class ProjectTest extends TestCase
                          ->get('/project/show/' . ($project->id));
 
         $response->assertStatus(200);
-     }
+    }
+
+*/
+
+    // CREATE
+    public function testCreatePageWithoutAuth() 
+    {
+        
+        $this->expectException(\Exception::class);
+
+        $response = $this->withSession(['food' => 'bar'])
+                         ->get('/project/create');
+    }
+
+
+    public function testCreatePageWithAuth() 
+    {
+        $user = factory(User::class)->create();
+        $response = $this->actingAs($user)
+                         ->withSession(['food' => 'bar'])
+                         ->get('/project/create');
+
+        $response->assertStatus(200);
+    }
+
+    
+    // EDIT
+    // tests qui interdit l’édition d’un projet par un utilisateur qui n’en est pas l’auteur
+    public function testProjectEditGoodUser()
+    {
+        $user1 = factory(User::class)->create();
+        $project = factory(Project::class)->create([
+            'autor' => $user1->firstname,
+            'user_id' => $user1->id
+        ]);
+        
+        $response = $this->actingAs($user1)
+                         ->withSession(['toto' => 'bar'])
+                         ->get('/project/edit/' . $project->id);
+
+        $response->assertStatus(200); 
+    }
+
+    
+    public function testProjectEditBadUser()
+    {
+
+        $this->expectException(\Exception::class);
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $project = factory(Project::class)->create([
+            'autor' => $user1->firstname,
+            'user_id' => $user1->id
+        ]);
+
+        $response = $this->actingAs($user2)
+                         ->withSession(['toto' => 'bar'])
+                         ->get('/project/edit/' . $project->id);
+
+        $response->assertStatus(404);
+    }    
+
+
+    public function testProjectEditNotLogged()
+    {
+
+        $this->expectException(\Exception::class);
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $project = factory(Project::class)->create([
+            'autor' => $user1->firstname,
+            'user_id' => $user1->id
+        ]);
+
+        $response = $this->withSession(['toto' => 'bar'])
+                         ->get('/project/edit/' . $project->id);
+
+        $response->assertStatus(404);
+    }    
 
 }
