@@ -28,30 +28,6 @@ class ProjectTest extends TestCase
         $response->assertStatus(200);
     }
 
-/*     
-
-    public function testProjectPageWithoutAuth() 
-    {
-        $project = factory(Project::class)->create();
-        $this->expectException(\Exception::class);
-
-        $response = $this->withSession(['food' => 'bar'])
-                         ->get('/project/show/' . ($project->id));
-    }
-
-
-    public function testProjectPageWithAuth() 
-    {
-        $user = factory(User::class)->create();
-        $project = factory(Project::class)->create();
-        $response = $this->actingAs($user)
-                         ->withSession(['food' => 'bar'])
-                         ->get('/project/show/' . ($project->id));
-
-        $response->assertStatus(200);
-    }
-
-*/
 
     // CREATE
     public function testCreatePageWithoutAuth() 
@@ -74,7 +50,7 @@ class ProjectTest extends TestCase
         $response->assertStatus(200);
     }
 
-    
+
     // EDIT
     // tests qui interdit l’édition d’un projet par un utilisateur qui n’en est pas l’auteur
     public function testProjectEditGoodUser()
