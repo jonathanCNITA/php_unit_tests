@@ -21,11 +21,13 @@ Route::get('/projects', 'ProjectController@index');
 
 Route::get('project/create', 'ProjectController@create')->middleware('auth');
 
+Route::post('/store', 'ProjectController@store');
+
 Route::get('project/show/{id}', 'ProjectController@show')->name('ficheProjet');
 
 Route::get('project/edit/{id}', 'ProjectController@edit');
 
-Route::put('project/update/{id}', 'ProjectController@update')->middleware('can:update,project');
+Route::post('project/update/{id}', 'ProjectController@update');
 
 Route::get('/donate', function() {
     return view('donate');
