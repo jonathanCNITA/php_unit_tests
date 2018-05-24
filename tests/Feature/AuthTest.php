@@ -30,16 +30,16 @@ class ProjectTest extends TestCase
 
 
     // CREATE
+    // TEST validant qu’un utilisateur non connecté ne peut pas ajouter un projet 
     public function testCreatePageWithoutAuth() 
     {
-        
         $this->expectException(\Exception::class);
 
         $response = $this->withSession(['food' => 'bar'])
                          ->get('/project/create');
     }
 
-
+    // TEST validant qu’un utilisateur connecté peut ajouter un projet 
     public function testCreatePageWithAuth() 
     {
         $user = factory(User::class)->create();
@@ -71,7 +71,6 @@ class ProjectTest extends TestCase
     
     public function testProjectEditBadUser()
     {
-
         $this->expectException(\Exception::class);
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
@@ -83,8 +82,6 @@ class ProjectTest extends TestCase
         $response = $this->actingAs($user2)
                          ->withSession(['toto' => 'bar'])
                          ->get('/project/edit/' . $project->id);
-
-        $response->assertStatus(404);
     }    
 
 
