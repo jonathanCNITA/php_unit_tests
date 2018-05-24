@@ -10,5 +10,6 @@
         <p>{{ $project->resume }}</p>
         <img class="img-project" src="{{ $project->imageurl }}" alt="imageProject" >
         <a href="{{ route('ficheProjet', [$project->id]) }}">Voir le projet</a>
+        <hr>
     @endforeach
 @endsection
