@@ -25,6 +25,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
+        //dd($projects);
 	    return view('projects', ['projects' => $projects]);
         //return view('projects');
     }
@@ -36,7 +37,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -69,8 +70,9 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::find($id);
+        $user = Auth::user();
     
-		return view('project', ['project'=>$project]);
+		return view('project', ['project'=>$project, 'user'=>$user]);
     }
 
     /**
@@ -83,13 +85,12 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         $user = Auth::user();
-        dump($project->user_id);
-        dump($user->id);
-        if ($project->user_id == $user->id){
-            return view('edit', ['project'=>$project]);
+        // dump($project->user_id);
+        // dump($user->id);
+        if ($project->user_id != $user->id){
+            abort(403, 'You are not the original author of this project!');
         }
-        abort(404);
-
+        return view('create', ['project'=>$project]);
     }
 
     /**
@@ -101,7 +102,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $updateProject = Project::find($id);
+        $updateProject->title  = $request->input('title');
+        $updateProject->resume = $request->input('resume');
+        $updateProject->content = $request->input('content');
+        $updateProject->imageurl = $request->input('imageurl');
+        $updateProject->save();
+        return redirect('projects');
     }
 
     /**
